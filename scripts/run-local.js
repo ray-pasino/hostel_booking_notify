@@ -23,12 +23,15 @@ async function sendArkeselSmsAlert(scrapeResult) {
 
   const apiKey = process.env.ARKESEL_API_KEY;
   const sender = process.env.ARKESEL_SENDER_ID;
-  const recipient = process.env.ARKESEL_RECIPIENT;
+  const recipients = (process.env.ARKESEL_RECIPIENTS ?? process.env.ARKESEL_RECIPIENT ?? "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
   const smsUrl = process.env.ARKESEL_SMS_URL ?? "https://sms.arkesel.com/api/v2/sms/send";
 
-  if (!apiKey || !sender || !recipient) {
+  if (!apiKey || !sender || recipients.length === 0) {
     throw new Error(
-      "Arkesel SMS settings are missing. Set ARKESEL_API_KEY, ARKESEL_SENDER_ID, and ARKESEL_RECIPIENT."
+      "Arkesel SMS settings are missing. Set ARKESEL_API_KEY, ARKESEL_SENDER_ID, and ARKESEL_RECIPIENTS (or ARKESEL_RECIPIENT)."
     );
   }
 
@@ -54,7 +57,7 @@ async function sendArkeselSmsAlert(scrapeResult) {
     body: JSON.stringify({
       sender,
       message: body,
-      recipients: [recipient],
+      recipients,
     }),
   });
 
