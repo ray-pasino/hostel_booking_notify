@@ -1,0 +1,24 @@
+{
+  "name": "hostelbooking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scripts/run-local.js",
+    "scrape": "node scripts/run-local.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "^147.0.0",
+    "dotenv": "^17.2.3",
+    "puppeteer": "^24.41.0",
+    "puppeteer-core": "^24.41.0"
+  }
+}
